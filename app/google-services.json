@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "985979542099",
+    "project_id": "appcensus2021",
+    "storage_bucket": "appcensus2021.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985979542099:android:c53f8ed2f34d9f515184a6",
+        "android_client_info": {
+          "package_name": "com.example.census2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985979542099-8kni1c6gvfiej6m0u72qlin71v80jbo1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcKdOj1RDOGAAT8_e0fJocz7VSVSyugN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985979542099-8kni1c6gvfiej6m0u72qlin71v80jbo1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
