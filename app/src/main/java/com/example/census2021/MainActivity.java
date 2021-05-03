@@ -25,29 +25,40 @@ public class MainActivity extends AppCompatActivity {
         TextInputLayout textEmail=(TextInputLayout)findViewById(R.id.email);
         TextInputLayout textPwd=(TextInputLayout)findViewById(R.id.password);
         ProgressBar bar=(ProgressBar)findViewById(R.id.progressBar2);
-        bar.setVisibility(View.VISIBLE);
        String email=textEmail.getEditText().getText().toString();
        String password=textPwd.getEditText().getText().toString();
          mAuth = FirebaseAuth.getInstance();
+        if(email.length()==0 ||password.length()==0 )
+        {
+            Toast.makeText(MainActivity.this, "Enter valid Data..", Toast.LENGTH_SHORT).show();
+            textPwd.getEditText().setText("");
+            textEmail.getEditText().setText("");
+        }
+        else if(password.length()<6)
+        {
+            Toast.makeText(MainActivity.this, "Password Must be greater than 6 characters..", Toast.LENGTH_SHORT).show();
+            textPwd.getEditText().setText("");
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful())
-                        {
-                            textEmail.getEditText().setText("");
-                            textPwd.getEditText().setText("");
-                            bar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(MainActivity.this, "Registered Successfully..", Toast.LENGTH_SHORT).show();
+        }
+        else {
+                  bar.setVisibility(View.VISIBLE);
+                   mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                textEmail.getEditText().setText("");
+                                textPwd.getEditText().setText("");
+                                bar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(MainActivity.this, "Registered Successfully..", Toast.LENGTH_SHORT).show();
 
+                            } else {
+                                bar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(MainActivity.this, "Error In Registration..", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else {
-                            bar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(MainActivity.this, "Error In Registration..", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
