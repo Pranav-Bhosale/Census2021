@@ -15,6 +15,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,6 +53,27 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 textEmail.getEditText().setText("");
                                 textPwd.getEditText().setText("");
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                FirebaseUser user= mAuth.getCurrentUser();
+                                DatabaseReference myRef = database.getReference();
+                                myRef =database.getReference().child("User");
+                                HashMap userMap=new HashMap();
+                                userMap.put("Username",email);
+                                userMap.put("Enrollment Number",password);
+                                myRef.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+                                    @Override
+                                    public void onComplete(@NonNull Task task) {
+                                        if(task.isSuccessful())
+                                        {
+
+                                        }
+                                        else {
+                                            Toast.makeText(getApplicationContext(),task.getException().toString(),Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+                                    }
+                                });
+
                                 bar.setVisibility(View.INVISIBLE);
                                 Toast.makeText(MainActivity.this, "Registered Successfully..", Toast.LENGTH_SHORT).show();
 
